@@ -8,13 +8,27 @@ const Navbar = () => {
         <a className="btn btn-ghost normal-case text-xl">Tokopedia Play</a>
       </div>
 
-      <div className="flex flex-1 justify-center">
+      {/* <div className="flex flex-1 justify-center">
         <input
           type="text"
           placeholder="Search"
           className="input input-bordered w-[50%] "
         />
         <button className="btn btn-square btn-outline">?</button>
+      </div> */}
+
+      <div className="join flex-1 justify-center">
+        <div className="w-1/2 bg-red-50">
+          <div className="">
+            <input
+              className="input input-bordered focus:outline-none join-item w-full"
+              placeholder="Search"
+            />
+          </div>
+        </div>
+        <div className="indicator">
+          <button className="btn join-item">Search</button>
+        </div>
       </div>
 
       <div className="flex-none gap-2">
