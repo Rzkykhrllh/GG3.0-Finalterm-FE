@@ -6,9 +6,9 @@ import ProductCard from "../components/ProductCard";
 
 const VideoDetail = () => {
   return (
-    <div class="min-h-screen bg-[#fafafa] p-4 grid grid-cols-10 gap-4">
+    <div class="min-h-screen bg-neutral-content p-4 grid grid-cols-10 gap-4">
       <div class="col-span-7  rounded-lg">
-        <div className="flex flex-col bg-blue-200 h-full rounded-xl">
+        <div className="flex flex-col  bg-base-content h-full rounded-xl">
           {/* Judul dkk */}
           <div className=" bg-white m-2 p-2 rounded-lg outline-2 outline-primary ">
             <h1 id="title" className=" text-xl font-bold">
@@ -32,7 +32,7 @@ const VideoDetail = () => {
           </div>
 
           {/* Products */}
-          <div className=" carousel p-2 m-2 gap-2 bg-white">
+          <div className=" carousel m-2 gap-2  rounded-xl p-2">
             {dummyVideo.map((data, idx) => (
               <div className="carousel-item">
                 <ProductCard />
@@ -41,7 +41,18 @@ const VideoDetail = () => {
           </div>
         </div>
       </div>
-      <div class="col-span-3 bg-gray-500 rounded-lg">Ceritanya ini chatbox</div>
+      <div class="col-span-3 bg-base-content rounded-xl p-4">
+        <div className="chat chat-start ">
+          <div className="chat-header">
+            Kobo Kanaeru
+            <time className="text-xs opacity-50">13-12-2002</time>
+          </div>
+          <div className="chat-bubble chat-bubble-primary">
+            You were the Chosen One!
+          </div>
+          {/* <div className="chat-footer opacity-50">Seen</div> */}
+        </div>
+      </div>
     </div>
   );
 };
