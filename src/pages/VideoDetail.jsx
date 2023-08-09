@@ -1,10 +1,64 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { dummyVideo } from "../DummyVideo";
 import VideoThumbnail from "../components/VideoThumbnail";
 import ProductCard from "../components/ProductCard";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { comment } from "postcss";
+import { formatDate } from "../utiils";
+import CommentBubble from "../components/CommentBubble";
 
 const VideoDetail = () => {
+  const { id } = useParams();
+
+  const [videoData, setVideoData] = useState({});
+  const [products, setProducts] = useState([]);
+  const [comments, setComments] = useState([]);
+
+  const getVideoData = async () => {
+    const url = `http://localhost:5000/${id}`;
+
+    try {
+      const response = await axios.get(url);
+      setVideoData(response.data.data[0]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getVideoProduct = async () => {
+    const url = `http://localhost:5000/product/${id}`;
+
+    try {
+      const response = await axios.get(url);
+      console.log("product", response.data.data);
+
+      setProducts(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getVideoComment = async () => {
+    const url = `http://localhost:5000/comment/${id}`;
+
+    try {
+      const response = await axios.get(url);
+      console.log("comment", response.data.data);
+
+      setComments(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getVideoData();
+    getVideoProduct();
+    getVideoComment();
+  }, []);
+
   return (
     <div class="min-h-screen bg-[#F6F8FC] p-4 grid grid-cols-10 gap-4">
       <div class="col-span-7  rounded-lg">
@@ -12,9 +66,9 @@ const VideoDetail = () => {
           {/* Judul dkk */}
           <div className=" bg-[#F6F8FC] m-2 p-2 rounded-lg outline-2    ">
             <h1 id="title" className=" text-xl font-bold">
-              Ini Judul
+              {videoData.title}
             </h1>
-            <p>Ini Deskripsinya</p>
+            <p>by {videoData.videoOwner}</p>
           </div>
 
           {/* Youtoube Video */}
@@ -33,9 +87,9 @@ const VideoDetail = () => {
 
           {/* Products */}
           <div className=" carousel m-2 gap-2  rounded-xl p-2 border-2 shadow-sm bg-[#F6F8FC]">
-            {dummyVideo.map((data, idx) => (
-              <div className="carousel-item">
-                <ProductCard />
+            {products.map((data, idx) => (
+              <div className="carousel-item" key={idx}>
+                <ProductCard data={data} />
               </div>
             ))}
           </div>
@@ -47,16 +101,9 @@ const VideoDetail = () => {
         class="col-span-3 bg-[#F2F6FC] border-2 shadow-sm rounded-xl p-4 flex justify-between flex-col"
       >
         <div id="prev-chat flex-1">
-          <div className="chat chat-start ">
-            <div className="chat-header">
-              Kobo Kanaeru
-              <time className="text-xs opacity-50">13-12-2002</time>
-            </div>
-            <div className="chat-bubble chat-bubble-primary">
-              You were the Chosen One!
-            </div>
-            {/* <div className="chat-footer opacity-50">Seen</div> */}
-          </div>
+          {comments.map((comment, idx) => (
+            <CommentBubble key={idx} comment={comment} />
+          ))}
         </div>
 
         <div className="join flex bg-red-600">
