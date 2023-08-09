@@ -3,7 +3,7 @@ import { Outlet, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const PrivateRoutes = () => {
-  const [auth, setAuth] = useState(false);
+  const [auth, setAuth] = useState(true);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {

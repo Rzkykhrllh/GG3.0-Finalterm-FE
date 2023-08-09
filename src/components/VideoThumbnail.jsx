@@ -1,8 +1,18 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function VideoThumbnail({ data }) {
+  const navigate = useNavigate();
+
+  const handleClick = (videoId) => {
+    navigate(`video/${videoId}`);
+  };
+
   return (
-    <div className="card card-compact  lg:w-72   shadow-sm  border-1 bg-white w-48">
+    <div
+      className="card card-compact  lg:w-72   shadow-sm  border-1 bg-white w-48 hover:cursor-pointer"
+      onClick={() => handleClick(data._id)}
+    >
       <figure className="rounded-lg aspect-video">
         <img src={data.img} alt="Shoes" className=" object-cover" />
       </figure>
