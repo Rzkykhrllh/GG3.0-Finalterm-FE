@@ -6,16 +6,19 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import VideoDetail from "./pages/VideoDetail";
+import PrivateRoutes from "./components/PrivateRoutes";
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route element={<PrivateRoutes />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/video/:id" element={<VideoDetail />} />
+          </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/video/:id" element={<VideoDetail />} />
         </Routes>
       </BrowserRouter>
     </>

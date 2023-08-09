@@ -63,9 +63,9 @@ const LoginForm = () => {
           </label>
         </div>
 
-        <btn className="btn btn-block btn-primary text-white" type="submit">
+        <button className="btn btn-block btn-primary text-white" type="submit">
           Login
-        </btn>
+        </button>
       </form>
     </div>
   );
