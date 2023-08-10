@@ -8,6 +8,10 @@ import Register from "./pages/Register";
 import VideoDetail from "./pages/VideoDetail";
 import PrivateRoutes from "./components/PrivateRoutes";
 
+import { ToastContainer, toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   return (
     <>
@@ -21,6 +25,7 @@ function App() {
           <Route path="/register" element={<Register />} />
         </Routes>
       </BrowserRouter>
+      <ToastContainer />
     </>
   );
 }

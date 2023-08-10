@@ -1,10 +1,12 @@
+import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 
 const RegisterForm = () => {
   const [input, setInput] = useState({
     email: "",
     password: "",
-    phoneNumber: "",
+    phone: "",
     name: "",
   });
 
@@ -12,7 +14,7 @@ const RegisterForm = () => {
     name: "",
     email: "",
     password: "",
-    phoneNumber: "",
+    phone: "",
   });
 
   const ValidateEmail = (mail) => {
@@ -55,24 +57,24 @@ const RegisterForm = () => {
     }
   };
 
-  const validatePhoneNumber = (phone) => {
+  const validatePhone = (phone) => {
     if (!phone) {
       seterrorMessage((prevErrors) => ({
         ...prevErrors,
-        phoneNumber: "Phone number is required.",
+        phone: "Phone number is required.",
       }));
     } else {
-      const phoneNumberRegex = /^(?:\+62|0)[\s-]?(\d[\s-]?){9,11}$/;
+      const phoneRegex = /^(?:\+62|0)[\s-]?(\d[\s-]?){9,11}$/;
 
-      if (phoneNumberRegex.test(phone)) {
+      if (phoneRegex.test(phone)) {
         seterrorMessage((prevErrors) => ({
           ...prevErrors,
-          phoneNumber: "",
+          phone: "",
         }));
       } else {
         seterrorMessage((prevErrors) => ({
           ...prevErrors,
-          phoneNumber: "Invalid phone number format.",
+          phone: "Invalid phone number format.",
         }));
       }
     }
@@ -97,8 +99,8 @@ const RegisterForm = () => {
 
     if (name === "name") {
       setInput({ ...input, name: value });
-    } else if (name === "phoneNumber") {
-      setInput({ ...input, phoneNumber: value });
+    } else if (name === "phone") {
+      setInput({ ...input, phone: value });
     } else if (name === "email") {
       setInput({ ...input, email: value });
     } else {
@@ -106,21 +108,57 @@ const RegisterForm = () => {
     }
   };
 
+  const register = async () => {
+    try {
+      let config = {
+        method: "post",
+        maxBodyLength: Infinity,
+        url: "http://localhost:5000/api/register",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: input,
+      };
+
+      const response = await axios.request(config);
+
+      if (response.status == 201) {
+        // Navigate to other
+      }
+
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+      const error_message = error.response.data.message;
+
+      toast.error(error_message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     validateName(input.name);
-    validatePhoneNumber(input.phoneNumber);
+    validatePhone(input.phone);
     ValidateEmail(input.email);
     validatePassword(input.password);
 
     if (
       !errorMessage.name &&
-      !errorMessage.phoneNumber &&
+      !errorMessage.phone &&
       !errorMessage.email &&
       !errorMessage.password
     ) {
-      // Api Call
+      register();
       console.log("API CALL");
     }
   };
@@ -128,12 +166,12 @@ const RegisterForm = () => {
   useEffect(() => {}, [errorMessage]);
 
   return (
-    <div className=" card card-bordered max-w-lg p-4 bg-white w-full">
-      <h1 className="text-lg  text-center font-bold text-primary">
+    <div className="w-full max-w-lg p-4 bg-white card card-bordered">
+      <h1 className="text-lg font-bold text-center text-primary">
         Create Your Account
       </h1>
 
-      <form className="form-control w-full" onSubmit={handleSubmit}>
+      <form className="w-full form-control" onSubmit={handleSubmit}>
         <div id="name-input">
           <label className="label">
             <span className="label-text font-bold text-[16px]">Name</span>
@@ -141,13 +179,13 @@ const RegisterForm = () => {
           <input
             type="text"
             placeholder="Type here"
-            className="input input-bordered w-full input-primary"
+            className="w-full input input-bordered input-primary"
             onChange={handleChange}
             name="name"
           />
           <label className="label">
             {!!errorMessage.name && (
-              <span className="label-text-alt text-red-400">
+              <span className="text-red-400 label-text-alt">
                 {errorMessage.name}
               </span>
             )}
@@ -163,13 +201,13 @@ const RegisterForm = () => {
           <input
             type="text"
             placeholder="Type here"
-            className="input input-bordered w-full input-primary"
+            className="w-full input input-bordered input-primary"
             onChange={handleChange}
-            name="phoneNumber"
+            name="phone"
           />
-          {!!errorMessage.phoneNumber && (
-            <span className="label-text-alt text-red-400">
-              {errorMessage.phoneNumber}
+          {!!errorMessage.phone && (
+            <span className="text-red-400 label-text-alt">
+              {errorMessage.phone}
             </span>
           )}
         </div>
@@ -182,12 +220,12 @@ const RegisterForm = () => {
             name="email"
             type="text"
             placeholder="Type here"
-            className="input input-bordered w-full input-primary"
+            className="w-full input input-bordered input-primary"
             onChange={handleChange}
           />
           <label className="label">
             {!!errorMessage.email && (
-              <span className="label-text-alt text-red-400">
+              <span className="text-red-400 label-text-alt">
                 {errorMessage.email}
               </span>
             )}
@@ -202,19 +240,19 @@ const RegisterForm = () => {
             type="password"
             name="password"
             placeholder="Type here"
-            className="input input-bordered w-full input-primary"
+            className="w-full input input-bordered input-primary"
             onChange={handleChange}
           />
           <label className="label">
             {!!errorMessage.password && (
-              <span className="label-text-alt text-red-400">
+              <span className="text-red-400 label-text-alt">
                 {errorMessage.password}
               </span>
             )}
           </label>
         </div>
 
-        <button className="btn btn-block btn-primary text-white" type="submit">
+        <button className="text-white btn btn-block btn-primary" type="submit">
           Sign UP
         </button>
       </form>
