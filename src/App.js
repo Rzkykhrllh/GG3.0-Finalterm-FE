@@ -11,19 +11,22 @@ import PrivateRoutes from "./components/PrivateRoutes";
 import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
+import { AuthProvider } from "./context/AuthProvider";
 
 function App() {
   return (
     <>
       <BrowserRouter>
-        <Routes>
-          <Route element={<PrivateRoutes />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/video/:id" element={<VideoDetail />} />
-          </Route>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            <Route element={<PrivateRoutes />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/video/:id" element={<VideoDetail />} />
+            </Route>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Routes>
+        </AuthProvider>
       </BrowserRouter>
       <ToastContainer />
     </>

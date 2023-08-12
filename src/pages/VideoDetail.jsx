@@ -1,26 +1,31 @@
 import React, { useState, useEffect } from "react";
-
-import { dummyVideo } from "../DummyVideo";
-import VideoThumbnail from "../components/VideoThumbnail";
-import ProductCard from "../components/ProductCard";
 import { useParams } from "react-router-dom";
-import axios from "axios";
-import { comment } from "postcss";
-import { formatDate } from "../utiils";
+
 import CommentBubble from "../components/CommentBubble";
+import ProductCard from "../components/ProductCard";
+
+import axios from "../core/api/axios";
+import useAxiosPrivate from "../core/hooks/useAxiosPrivate";
+import {
+  GET_VIDEO_URL,
+  GET_PRODUCT_URL,
+  GET_COMMENT_URL,
+  POST_COMMENT_URL,
+} from "../utils/constants";
 
 const VideoDetail = () => {
+  const AxiosPrivate = useAxiosPrivate();
   const { id } = useParams();
 
   const [videoData, setVideoData] = useState({});
   const [products, setProducts] = useState([]);
   const [comments, setComments] = useState([]);
 
-  const getVideoData = async () => {
-    const url = `http://localhost:5000/${id}`;
+  const [inputComment, setInputComment] = useState("");
 
+  const getVideoData = async () => {
     try {
-      const response = await axios.get(url);
+      const response = await axios.get(GET_VIDEO_URL + id);
       setVideoData(response.data.data[0]);
     } catch (error) {
       console.log(error);
@@ -28,11 +33,8 @@ const VideoDetail = () => {
   };
 
   const getVideoProduct = async () => {
-    const url = `http://localhost:5000/product/${id}`;
-
     try {
-      const response = await axios.get(url);
-      console.log("product", response.data.data);
+      const response = await axios.get(GET_PRODUCT_URL + id);
 
       setProducts(response.data.data);
     } catch (error) {
@@ -41,11 +43,8 @@ const VideoDetail = () => {
   };
 
   const getVideoComment = async () => {
-    const url = `http://localhost:5000/comment/${id}`;
-
     try {
-      const response = await axios.get(url);
-      console.log("comment", response.data.data);
+      const response = await axios.get(GET_COMMENT_URL + id);
 
       setComments(response.data.data);
     } catch (error) {
@@ -58,6 +57,24 @@ const VideoDetail = () => {
     getVideoProduct();
     getVideoComment();
   }, []);
+
+  const handleSubmitComment = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await AxiosPrivate.post(POST_COMMENT_URL + id, {
+        comment: inputComment,
+      });
+
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleChangeComment = (e) => {
+    setInputComment(e.target.value);
+  };
 
   return (
     <div class="min-h-screen bg-[#F6F8FC] p-4 grid grid-cols-10 gap-4">
@@ -106,19 +123,25 @@ const VideoDetail = () => {
           ))}
         </div>
 
-        <div className="join flex bg-red-600">
-          <div className="bg-blue-200 flex-grow">
-            <div>
-              <input
-                className="input input-bordered join-item w-full focus:outline-none"
-                placeholder="Search"
-              />
+        <form onSubmit={handleSubmitComment}>
+          <div className="join flex bg-red-600">
+            <div className="bg-blue-200 flex-grow">
+              <div>
+                <input
+                  className="input input-bordered join-item w-full focus:outline-none"
+                  placeholder="comment"
+                  name=""
+                  onChange={handleChangeComment}
+                />
+              </div>
+            </div>
+            <div className="indicator">
+              <button type="submit" className="btn join-item ">
+                Send
+              </button>
             </div>
           </div>
-          <div className="indicator">
-            <button className="btn join-item ">Send</button>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
   );

@@ -1,6 +1,9 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
+
 import { toast } from "react-toastify";
+
+import axios from "../core/api/axios";
+const REGISTER_URL = `/api/register`;
 
 const RegisterForm = () => {
   const [input, setInput] = useState({
@@ -110,17 +113,12 @@ const RegisterForm = () => {
 
   const register = async () => {
     try {
-      let config = {
-        method: "post",
-        maxBodyLength: Infinity,
-        url: "http://localhost:5000/api/register",
+      const response = await axios.post(REGISTER_URL, input, {
         headers: {
           "Content-Type": "application/json",
         },
-        data: input,
-      };
-
-      const response = await axios.request(config);
+        withCredentials: true,
+      });
 
       if (response.status == 201) {
         // Navigate to other
@@ -129,7 +127,7 @@ const RegisterForm = () => {
       console.log(response);
     } catch (error) {
       console.log(error);
-      const error_message = error.response.data.message;
+      const error_message = error?.response?.data?.message;
 
       toast.error(error_message, {
         position: "top-right",
@@ -159,7 +157,6 @@ const RegisterForm = () => {
       !errorMessage.password
     ) {
       register();
-      console.log("API CALL");
     }
   };
 
@@ -182,6 +179,7 @@ const RegisterForm = () => {
             className="w-full input input-bordered input-primary"
             onChange={handleChange}
             name="name"
+            required
           />
           <label className="label">
             {!!errorMessage.name && (
@@ -204,6 +202,7 @@ const RegisterForm = () => {
             className="w-full input input-bordered input-primary"
             onChange={handleChange}
             name="phone"
+            required
           />
           {!!errorMessage.phone && (
             <span className="text-red-400 label-text-alt">
@@ -222,6 +221,7 @@ const RegisterForm = () => {
             placeholder="Type here"
             className="w-full input input-bordered input-primary"
             onChange={handleChange}
+            required
           />
           <label className="label">
             {!!errorMessage.email && (
@@ -242,6 +242,7 @@ const RegisterForm = () => {
             placeholder="Type here"
             className="w-full input input-bordered input-primary"
             onChange={handleChange}
+            required
           />
           <label className="label">
             {!!errorMessage.password && (

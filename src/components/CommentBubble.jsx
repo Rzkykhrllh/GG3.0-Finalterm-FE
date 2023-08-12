@@ -1,5 +1,5 @@
 import React from "react";
-import { formatDate } from "../utiils";
+import { formatDate } from "../utils/ms-to-second";
 
 const CommentBubble = ({ comment }) => {
   return (

@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 
-import { dummyVideo } from "../DummyVideo";
 import VideoThumbnail from "../components/VideoThumbnail";
-import axios from "axios";
+import axios from "../core/api/axios";
+import { GET_VIDEO_URL } from "../utils/constants";
 
 const Home = () => {
   const [videos, setVideos] = useState([]);
 
-  useEffect(() => {
-    console.log(videos);
-  }, [videos]);
+  useEffect(() => {}, [videos]);
 
   const getVideos = async () => {
-    const url = `http://localhost:5000/`;
     try {
-      const response = await axios.get(url);
+      const response = await axios.get(GET_VIDEO_URL);
       setVideos(response.data.data);
     } catch (errors) {
       console.log(errors);
