@@ -23,11 +23,13 @@ const Home = () => {
     getVideos();
   }, []);
 
+  console.log(process.env.REACT_APP_BASE_URL);
+
   return (
     <Layout>
       <div className="min-h-screen pt-[68px] px-10 mx-auto xl:w-[1280px]  ">
         <div className="flex justify-center flex-wrap gap-4 ">
-          {videos.map((data, idx) => (
+          {videos?.map((data, idx) => (
             <VideoThumbnail key={idx} data={data} />
           ))}
         </div>

@@ -14,7 +14,7 @@ function VideoThumbnail({ data }) {
       onClick={() => handleClick(data._id)}
     >
       <figure className="rounded-lg aspect-video">
-        <img src={data.img} alt="Shoes" className=" object-cover" />
+        <img src={data.thumbnailUrl} alt="Shoes" className=" object-cover" />
       </figure>
       <div className="py-4">
         <h2 className="md:text-[16px] text-[14px] font-bold">{data.title}</h2>

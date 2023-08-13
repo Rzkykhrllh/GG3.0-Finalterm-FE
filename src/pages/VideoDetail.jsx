@@ -79,26 +79,29 @@ const VideoDetail = () => {
   return (
     <div class="min-h-screen bg-[#F6F8FC] p-4 grid grid-cols-10 gap-4">
       <div class="col-span-7  rounded-lg">
-        <div className="flex flex-col  bg-white h-full rounded-xl  border-2">
+        <div className="flex flex-col h-full bg-white shadow-xl rounded-xl ">
           {/* Judul dkk */}
-          <div className=" bg-[#F6F8FC] m-2 p-2 rounded-lg outline-2    ">
-            <h1 id="title" className=" text-xl font-bold">
+          <div className=" bg-[#F6F8FC] m-2 rounded-lg p-2">
+            <h1 id="title" className="text-lg font-bold">
               {videoData.title}
             </h1>
-            <p>by {videoData.videoOwner}</p>
+            <p className="text-sm">by {videoData.videoOwner}</p>
           </div>
 
           {/* Youtoube Video */}
-          <div className=" rounded-lg  m-2 relative flex-grow flex-1 overflow-hidden  shadow-sm">
+          <div className="relative flex-1 flex-grow m-2 overflow-hidden rounded-lg shadow-sm ">
             <iframe
               width="853"
               height="480"
-              src={`https://www.youtube.com/embed/rokGy0huYEA`}
+              // src={videoData.videoUrl}
+              src={
+                "https://www.youtube.com/embed/sVTy_wmn5SU?list=RDBBpIV9A1PXc"
+              }
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
               title="Embedded youtube"
-              className="left-0 right-0 top-0 bottom-0 h-full w-full rounded-md"
+              className="top-0 bottom-0 left-0 right-0 w-full h-full rounded-md"
             />
           </div>
 
@@ -115,7 +118,7 @@ const VideoDetail = () => {
 
       <div
         id="chatbox"
-        class="col-span-3 bg-[#F2F6FC] border-2 shadow-sm rounded-xl p-4 flex justify-between flex-col"
+        class="col-span-3 bg-white border-2 shadow-sm rounded-xl p-4 flex justify-between flex-col"
       >
         <div id="prev-chat flex-1">
           {comments.map((comment, idx) => (
@@ -124,11 +127,11 @@ const VideoDetail = () => {
         </div>
 
         <form onSubmit={handleSubmitComment}>
-          <div className="join flex bg-red-600">
-            <div className="bg-blue-200 flex-grow">
+          <div className="flex bg-red-600 join">
+            <div className="flex-grow bg-blue-200">
               <div>
                 <input
-                  className="input input-bordered join-item w-full focus:outline-none"
+                  className="w-full input input-bordered join-item focus:outline-none"
                   placeholder="comment"
                   name=""
                   onChange={handleChangeComment}
