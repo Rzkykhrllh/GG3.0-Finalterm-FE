@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 import axios from "../core/api/axios";
+import Loading from "./Loading";
 const REGISTER_URL = `/api/register`;
 
 const RegisterForm = () => {
@@ -19,6 +20,9 @@ const RegisterForm = () => {
     password: "",
     phone: "",
   });
+
+  const [isSuccessRegister, setIsSuccessRegister] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const ValidateEmail = (mail) => {
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
@@ -122,6 +126,7 @@ const RegisterForm = () => {
 
       if (response.status == 201) {
         // Navigate to other
+        setIsSuccessRegister(true);
       }
 
       console.log(response);
@@ -145,6 +150,8 @@ const RegisterForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    setIsLoading(true);
+
     validateName(input.name);
     validatePhone(input.phone);
     ValidateEmail(input.email);
@@ -158,106 +165,133 @@ const RegisterForm = () => {
     ) {
       register();
     }
+
+    setIsLoading(false);
   };
 
-  useEffect(() => {}, [errorMessage]);
-
   return (
-    <div className="w-full max-w-lg p-4 bg-white card card-bordered">
-      <h1 className="text-lg font-bold text-center text-primary">
-        Create Your Account
-      </h1>
+    <>
+      {isLoading && <Loading />}
+      <div className="w-full max-w-lg p-4 bg-white card card-bordered">
+        {isSuccessRegister ? (
+          <div className="">
+            <h1 className="text-lg font-bold text-success">
+              Registration Sucess
+            </h1>
+            <p className="text-md">Please login to continue</p>
+            <a
+              href="/login"
+              className=" text-blue-700 hover:text-blue-500 underline mt-2 inline-block"
+            >
+              Go to Login Page
+            </a>
+          </div>
+        ) : (
+          <>
+            <h1 className="text-lg font-bold text-center text-primary">
+              Create Your Account
+            </h1>
 
-      <form className="w-full form-control" onSubmit={handleSubmit}>
-        <div id="name-input">
-          <label className="label">
-            <span className="label-text font-bold text-[16px]">Name</span>
-          </label>
-          <input
-            type="text"
-            placeholder="Type here"
-            className="w-full input input-bordered input-primary"
-            onChange={handleChange}
-            name="name"
-            required
-          />
-          <label className="label">
-            {!!errorMessage.name && (
-              <span className="text-red-400 label-text-alt">
-                {errorMessage.name}
-              </span>
-            )}
-          </label>
-        </div>
+            <form className="w-full form-control" onSubmit={handleSubmit}>
+              <div id="name-input">
+                <label className="label">
+                  <span className="label-text font-bold text-[16px]">Name</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Type here"
+                  className="w-full input input-bordered input-primary"
+                  onChange={handleChange}
+                  name="name"
+                  required
+                />
+                <label className="label">
+                  {!!errorMessage.name && (
+                    <span className="text-red-400 label-text-alt">
+                      {errorMessage.name}
+                    </span>
+                  )}
+                </label>
+              </div>
 
-        <div id="phone-input">
-          <label className="label">
-            <span className="label-text font-bold text-[16px]">
-              Phone Number
-            </span>
-          </label>
-          <input
-            type="text"
-            placeholder="Type here"
-            className="w-full input input-bordered input-primary"
-            onChange={handleChange}
-            name="phone"
-            required
-          />
-          {!!errorMessage.phone && (
-            <span className="text-red-400 label-text-alt">
-              {errorMessage.phone}
-            </span>
-          )}
-        </div>
+              <div id="phone-input">
+                <label className="label">
+                  <span className="label-text font-bold text-[16px]">
+                    Phone Number
+                  </span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Type here"
+                  className="w-full input input-bordered input-primary"
+                  onChange={handleChange}
+                  name="phone"
+                  required
+                />
+                {!!errorMessage.phone && (
+                  <span className="text-red-400 label-text-alt">
+                    {errorMessage.phone}
+                  </span>
+                )}
+              </div>
 
-        <div id="email-input">
-          <label className="label">
-            <span className="label-text font-bold text-[16px]">Email</span>
-          </label>
-          <input
-            name="email"
-            type="text"
-            placeholder="Type here"
-            className="w-full input input-bordered input-primary"
-            onChange={handleChange}
-            required
-          />
-          <label className="label">
-            {!!errorMessage.email && (
-              <span className="text-red-400 label-text-alt">
-                {errorMessage.email}
-              </span>
-            )}
-          </label>
-        </div>
+              <div id="email-input">
+                <label className="label">
+                  <span className="label-text font-bold text-[16px]">
+                    Email
+                  </span>
+                </label>
+                <input
+                  name="email"
+                  type="text"
+                  placeholder="Type here"
+                  className="w-full input input-bordered input-primary"
+                  onChange={handleChange}
+                  required
+                />
+                <label className="label">
+                  {!!errorMessage.email && (
+                    <span className="text-red-400 label-text-alt">
+                      {errorMessage.email}
+                    </span>
+                  )}
+                </label>
+              </div>
 
-        <div id="password-input">
-          <label className="label">
-            <span className="label-text font-bold text-[16px]">Password</span>
-          </label>
-          <input
-            type="password"
-            name="password"
-            placeholder="Type here"
-            className="w-full input input-bordered input-primary"
-            onChange={handleChange}
-            required
-          />
-          <label className="label">
-            {!!errorMessage.password && (
-              <span className="text-red-400 label-text-alt">
-                {errorMessage.password}
-              </span>
-            )}
-          </label>
-        </div>
+              <div id="password-input">
+                <label className="label">
+                  <span className="label-text font-bold text-[16px]">
+                    Password
+                  </span>
+                </label>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Type here"
+                  className="w-full input input-bordered input-primary"
+                  onChange={handleChange}
+                  required
+                />
+                <label className="label">
+                  {!!errorMessage.password && (
+                    <span className="text-red-400 label-text-alt">
+                      {errorMessage.password}
+                    </span>
+                  )}
+                </label>
+              </div>
 
-        <button className="text-white btn btn-block btn-primary" type="submit">
-          Sign UP
-        </button>
-      </form>
-    </div>
+              <button
+                className="text-white btn btn-block btn-primary"
+                type="submit"
+              >
+                Sign UP
+              </button>
+            </form>
+          </>
+        )}
+      </div>
+    </>
   );
 };
 

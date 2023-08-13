@@ -5,11 +5,12 @@ import useAuth from "../core/hooks/useAuth";
 import { toast } from "react-toastify";
 
 import axios from "../core/api/axios";
+import Loading from "./Loading";
 const LOGIN_URL = "/api/login";
 
 const LoginForm = () => {
   const { setAuth } = useAuth();
-
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -72,60 +73,69 @@ const LoginForm = () => {
   };
 
   const handleSubmit = (e) => {
+    setIsLoading(true);
     e.preventDefault();
 
     // Api Call
     login();
+    setIsLoading(false);
   };
 
   return (
-    <div className=" card card-bordered max-w-lg p-4 bg-white w-full">
-      <h1 className="text-lg  text-center font-bold text-primary">
-        Login to your account
-      </h1>
+    <>
+      {isLoading && <Loading />}
 
-      <form className="form-control w-full" onSubmit={handleSubmit}>
-        <div id="email-input">
-          <label className="label">
-            <span className="label-text font-bold text-[16px]">Email</span>
-          </label>
-          <input
-            type="text"
-            name="email"
-            placeholder="Type here"
-            className="input input-bordered w-full input-primary"
-            onChange={handleChange}
-            required
-          />
-          <label className="label">
-            {/* <span className="label-text-alt">Bottom Left label</span>
+      <div className=" card card-bordered max-w-lg p-4 bg-white w-full">
+        <h1 className="text-lg  text-center font-bold text-primary">
+          Login to your account
+        </h1>
+
+        <form className="form-control w-full" onSubmit={handleSubmit}>
+          <div id="email-input">
+            <label className="label">
+              <span className="label-text font-bold text-[16px]">Email</span>
+            </label>
+            <input
+              type="text"
+              name="email"
+              placeholder="Type here"
+              className="input input-bordered w-full input-primary"
+              onChange={handleChange}
+              required
+            />
+            <label className="label">
+              {/* <span className="label-text-alt">Bottom Left label</span>
   <span className="label-text-alt">Bottom Right label</span> */}
-          </label>
-        </div>
+            </label>
+          </div>
 
-        <div id="password-input">
-          <label className="label">
-            <span className="label-text font-bold text-[16px]">Password</span>
-          </label>
-          <input
-            name="password"
-            type="password"
-            placeholder="Type here"
-            className="input input-bordered w-full input-primary"
-            onChange={handleChange}
-            required
-          />
-          <label className="label">
-            {/* <span className="label-text-alt">Bottom Left label</span>
+          <div id="password-input">
+            <label className="label">
+              <span className="label-text font-bold text-[16px]">Password</span>
+            </label>
+            <input
+              name="password"
+              type="password"
+              placeholder="Type here"
+              className="input input-bordered w-full input-primary"
+              onChange={handleChange}
+              required
+            />
+            <label className="label">
+              {/* <span className="label-text-alt">Bottom Left label</span>
   <span className="label-text-alt">Bottom Right label</span> */}
-          </label>
-        </div>
+            </label>
+          </div>
 
-        <button className="btn btn-block btn-primary text-white" type="submit">
-          Login
-        </button>
-      </form>
-    </div>
+          <button
+            className="btn btn-block btn-primary text-white"
+            type="submit"
+          >
+            Login
+          </button>
+        </form>
+      </div>
+    </>
   );
 };
 

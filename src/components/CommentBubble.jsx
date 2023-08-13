@@ -10,7 +10,9 @@ const CommentBubble = ({ comment }) => {
           {formatDate(comment.createdAt)}
         </time>
       </div>
-      <div className="chat-bubble chat-bubble-primary">{comment.comment}</div>
+      <div className="chat-bubble bg-[#F6F8FC] text-gray-700">
+        {comment.comment}
+      </div>
       {/* <div className="chat-footer opacity-50">Seen</div> */}
     </div>
   );

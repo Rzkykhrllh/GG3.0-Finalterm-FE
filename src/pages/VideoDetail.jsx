@@ -77,7 +77,7 @@ const VideoDetail = () => {
   };
 
   return (
-    <div class="min-h-screen bg-[#F6F8FC] p-4 grid grid-cols-10 gap-4">
+    <div class="max-h-screen bg-[#F6F8FC] p-4 grid grid-cols-10 gap-4">
       <div class="col-span-7  rounded-lg">
         <div className="flex flex-col h-full bg-white shadow-xl rounded-xl ">
           {/* Judul dkk */}
@@ -106,7 +106,7 @@ const VideoDetail = () => {
           </div>
 
           {/* Products */}
-          <div className=" carousel m-2 gap-2  rounded-xl p-2 border-2 shadow-sm bg-[#F6F8FC]">
+          <div className=" carousel m-2 gap-2  rounded-xl p-2  shadow-sm bg-[#F6F8FC]">
             {products.map((data, idx) => (
               <div className="carousel-item" key={idx}>
                 <ProductCard data={data} />
@@ -118,15 +118,19 @@ const VideoDetail = () => {
 
       <div
         id="chatbox"
-        class="col-span-3 bg-white border-2 shadow-sm rounded-xl p-4 flex justify-between flex-col"
+        class="col-span-3 bg-white  shadow-sm rounded-xl p-4 flex justify-between flex-col max-w-md overflow max-h-[96vh]"
       >
-        <div id="prev-chat flex-1">
-          {comments.map((comment, idx) => (
-            <CommentBubble key={idx} comment={comment} />
-          ))}
+        <div
+          id="prev-chat"
+          className=" overflow-y-scroll scrollbar-thin scrollbar-thumb-[#F6F8FC]"
+        >
+          {comments.map(
+            (comment, idx) =>
+              idx < 20 && <CommentBubble key={idx} comment={comment} />
+          )}
         </div>
 
-        <form onSubmit={handleSubmitComment}>
+        <form onSubmit={handleSubmitComment} className=" mt-4">
           <div className="flex bg-red-600 join">
             <div className="flex-grow bg-blue-200">
               <div>
