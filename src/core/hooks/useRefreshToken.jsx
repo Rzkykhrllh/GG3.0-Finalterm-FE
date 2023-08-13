@@ -26,6 +26,8 @@ const useRefreshToken = () => {
         return { ...prev, accessToken: response?.data?.token };
       });
 
+      localStorage.setItem("accessToken", response?.data?.token);
+
       return response.data.token;
     } catch (error) {
       console.log(error);

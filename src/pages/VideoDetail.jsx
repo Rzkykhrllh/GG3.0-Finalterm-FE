@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import CommentBubble from "../components/CommentBubble";
 import ProductCard from "../components/ProductCard";
 
 import axios from "../core/api/axios";
@@ -25,12 +24,10 @@ const VideoDetail = () => {
 
   const [inputComment, setInputComment] = useState("");
 
-  useEffect(() => {}, [comments]);
-
   const getVideoData = async () => {
     try {
       const response = await axios.get(GET_VIDEO_URL + id);
-      setVideoData(response.data.data[0]);
+      setVideoData(response.data.data);
     } catch (error) {
       console.log(error);
     }
@@ -72,22 +69,22 @@ const VideoDetail = () => {
 
       if (response.status === 200) {
         // reload the comment
-        toast.success("Comment successfully added", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
 
         setInputComment("");
         getVideoComment();
       }
     } catch (error) {
       console.log(error);
+      toast.error("Failed to comment, something wrong happened", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   };
 
@@ -104,7 +101,7 @@ const VideoDetail = () => {
             <h1 id="title" className="text-lg font-bold">
               {videoData.title}
             </h1>
-            <p className="text-sm">by {videoData.videoOwner}</p>
+            <p className="text-sm">by {videoData.videoOwnerUsername}</p>
           </div>
 
           {/* Youtoube Video */}
@@ -112,10 +109,7 @@ const VideoDetail = () => {
             <iframe
               width="853"
               height="480"
-              // src={videoData.videoUrl}
-              src={
-                "https://www.youtube.com/embed/sVTy_wmn5SU?list=RDBBpIV9A1PXc"
-              }
+              src={videoData.videoUrl}
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
