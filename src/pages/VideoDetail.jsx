@@ -12,6 +12,8 @@ import {
   GET_COMMENT_URL,
   POST_COMMENT_URL,
 } from "../utils/constants";
+import CommentSection from "../components/CommentSection";
+import { toast } from "react-toastify";
 
 const VideoDetail = () => {
   const AxiosPrivate = useAxiosPrivate();
@@ -22,6 +24,8 @@ const VideoDetail = () => {
   const [comments, setComments] = useState([]);
 
   const [inputComment, setInputComment] = useState("");
+
+  useEffect(() => {}, [comments]);
 
   const getVideoData = async () => {
     try {
@@ -66,7 +70,22 @@ const VideoDetail = () => {
         comment: inputComment,
       });
 
-      console.log(response);
+      if (response.status === 200) {
+        // reload the comment
+        toast.success("Comment successfully added", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+
+        setInputComment("");
+        getVideoComment();
+      }
     } catch (error) {
       console.log(error);
     }
@@ -78,7 +97,7 @@ const VideoDetail = () => {
 
   return (
     <div class="max-h-screen bg-[#F6F8FC] p-4 grid grid-cols-10 gap-4">
-      <div class="col-span-7  rounded-lg">
+      <div class="col-span-7  rounded-lg min-h-[96vh]">
         <div className="flex flex-col h-full bg-white shadow-xl rounded-xl ">
           {/* Judul dkk */}
           <div className=" bg-[#F6F8FC] m-2 rounded-lg p-2">
@@ -106,50 +125,24 @@ const VideoDetail = () => {
           </div>
 
           {/* Products */}
-          <div className=" carousel m-2 gap-2  rounded-xl p-2  shadow-sm bg-[#F6F8FC]">
-            {products.map((data, idx) => (
-              <div className="carousel-item" key={idx}>
-                <ProductCard data={data} />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div
-        id="chatbox"
-        class="col-span-3 bg-white  shadow-sm rounded-xl p-4 flex justify-between flex-col max-w-md overflow max-h-[96vh]"
-      >
-        <div
-          id="prev-chat"
-          className=" overflow-y-scroll scrollbar-thin scrollbar-thumb-[#F6F8FC]"
-        >
-          {comments.map(
-            (comment, idx) =>
-              idx < 20 && <CommentBubble key={idx} comment={comment} />
+          {products.length > 0 && (
+            <div className=" carousel m-2 gap-2  rounded-xl p-2  shadow-sm bg-[#F6F8FC]">
+              {products.map((data, idx) => (
+                <div className="carousel-item" key={idx}>
+                  <ProductCard data={data} />
+                </div>
+              ))}
+            </div>
           )}
         </div>
-
-        <form onSubmit={handleSubmitComment} className=" mt-4">
-          <div className="flex bg-red-600 join">
-            <div className="flex-grow bg-blue-200">
-              <div>
-                <input
-                  className="w-full input input-bordered join-item focus:outline-none"
-                  placeholder="comment"
-                  name=""
-                  onChange={handleChangeComment}
-                />
-              </div>
-            </div>
-            <div className="indicator">
-              <button type="submit" className="btn join-item ">
-                Send
-              </button>
-            </div>
-          </div>
-        </form>
       </div>
+
+      <CommentSection
+        comments={comments}
+        handleChangeComment={handleChangeComment}
+        handleSubmitComment={handleSubmitComment}
+        inputComment={inputComment}
+      />
     </div>
   );
 };

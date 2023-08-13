@@ -19,10 +19,10 @@ function App() {
       <BrowserRouter>
         <AuthProvider>
           <Routes>
-            <Route element={<PrivateRoutes />}>
-              <Route path="/" element={<Home />} />
-              <Route path="/video/:id" element={<VideoDetail />} />
-            </Route>
+            <Route element={<PrivateRoutes />}></Route>
+
+            <Route path="/" element={<Home />} />
+            <Route path="/video/:id" element={<VideoDetail />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Routes>
