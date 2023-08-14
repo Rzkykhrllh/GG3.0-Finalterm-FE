@@ -172,7 +172,7 @@ const RegisterForm = () => {
   return (
     <>
       {isLoading && <Loading />}
-      <div className="w-full max-w-lg p-4 bg-white card card-bordered">
+      <div className="card card-bordered max-w-lg p-4 bg-white w-full">
         {isSuccessRegister ? (
           <div className="">
             <h1 className="text-lg font-bold text-success">
@@ -188,7 +188,7 @@ const RegisterForm = () => {
           </div>
         ) : (
           <>
-            <h1 className="text-lg font-bold text-center text-[#f6f8fc]">
+            <h1 className="text-lg font-bold text-center ">
               Create Your Account
             </h1>
 

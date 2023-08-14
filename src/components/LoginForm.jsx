@@ -85,7 +85,7 @@ const LoginForm = () => {
     <>
       {isLoading && <Loading />}
 
-      <div className=" card card-bordered max-w-lg p-4 bg-white w-full">
+      <div className=" card card-bordered sm:max-w-lg p-4 bg-white w-full">
         <h1 className="text-lg  text-center font-bold ">
           Login to your account
         </h1>
