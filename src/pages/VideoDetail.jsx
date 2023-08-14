@@ -95,7 +95,7 @@ const VideoDetail = () => {
   return (
     <div class="sm:max-h-screen bg-[#F6F8FC] p-4 sm:grid sm:grid-cols-10 sm:gap-4">
       <div class="sm:col-span-7  rounded-lg sm:min-h-[96vh] min-h-[50vh] ">
-        <div className="flex flex-col bg-white shadow-xl rounded-xl justify-between h-full min-h-[50vh]">
+        <div className="flex flex-col bg-white shadow-xl rounded-xl justify-between h-full min-h-[96vh]">
           {/* Judul dkk */}
           <div className=" bg-[#F6F8FC] m-2 rounded-lg p-2">
             <h1 id="title" className="text-lg font-bold">
