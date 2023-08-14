@@ -1,34 +1,22 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import useAuth from "../core/hooks/useAuth";
+import { Navigate } from "react-router-dom";
 
 const Navbar = () => {
+  const { auth, setAuth } = useAuth();
+
+  const logout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+
+    setAuth({});
+    window.location.reload(true);
+  };
+
   return (
-    <div className="navbar bg-base-100 top-0 left-0 right-0 hidden md:flex">
+    <div className="navbar bg-base-100 top-0 left-0 right-0 hidden md:flex  justify-between border-b-2 shadow-sm">
       <div className="">
         <a className="btn btn-ghost normal-case text-xl">Tokopedia Play</a>
-      </div>
-
-      {/* <div className="flex flex-1 justify-center">
-        <input
-          type="text"
-          placeholder="Search"
-          className="input input-bordered w-[50%] "
-        />
-        <button className="btn btn-square btn-outline">?</button>
-      </div> */}
-
-      <div className="join flex-1 justify-center">
-        <div className="w-1/2 bg-red-50">
-          <div className="">
-            <input
-              className="input input-bordered focus:outline-none join-item w-full"
-              placeholder="Search"
-            />
-          </div>
-        </div>
-        <div className="indicator">
-          <button className="btn join-item">Search</button>
-        </div>
       </div>
 
       <div className="flex-none gap-2">
@@ -43,18 +31,15 @@ const Navbar = () => {
             tabIndex={0}
             className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
           >
-            <li>
-              <a className="justify-between">
-                Profile
-                <span className="badge">New</span>
-              </a>
-            </li>
-            <li>
-              <a>Settings</a>
-            </li>
-            <li>
-              <a>Logout</a>
-            </li>
+            {auth?.accessToken ? (
+              <li onClick={logout}>
+                <a>Logout</a>
+              </li>
+            ) : (
+              <li>
+                <a href="/login">Login</a>
+              </li>
+            )}
           </ul>
         </div>
       </div>
