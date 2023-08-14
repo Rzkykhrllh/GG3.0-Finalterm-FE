@@ -14,7 +14,7 @@ const CommentSection = ({
   return (
     <div
       id="chatbox"
-      class="col-span-3 bg-white  shadow-sm rounded-xl p-4 flex justify-between flex-col max-w-md overflow max-h-[96vh]"
+      class="sm:col-span-3 bg-white  shadow-sm rounded-xl p-4 flex justify-between flex-col sm:max-w-md overflow sm:max-h-[96vh] max-h-[44vh] mt-4 sm:mt-0"
     >
       <div
         id="prev-chat"
@@ -48,7 +48,7 @@ const CommentSection = ({
           </div>
         </form>
       ) : (
-        <div className="p-2  bg-[#F6F8FC]">
+        <div className="p-2  bg-[#F6F8FC] rounded-md mt-4">
           Please{" "}
           <a
             href="/login"

@@ -93,9 +93,9 @@ const VideoDetail = () => {
   };
 
   return (
-    <div class="max-h-screen bg-[#F6F8FC] p-4 grid grid-cols-10 gap-4">
-      <div class="col-span-7  rounded-lg min-h-[96vh]">
-        <div className="flex flex-col h-full bg-white shadow-xl rounded-xl ">
+    <div class="sm:max-h-screen bg-[#F6F8FC] p-4 sm:grid sm:grid-cols-10 sm:gap-4">
+      <div class="sm:col-span-7  rounded-lg sm:min-h-[96vh] min-h-[50vh] ">
+        <div className="flex flex-col bg-white shadow-xl rounded-xl justify-between h-full min-h-[50vh]">
           {/* Judul dkk */}
           <div className=" bg-[#F6F8FC] m-2 rounded-lg p-2">
             <h1 id="title" className="text-lg font-bold">
@@ -105,16 +105,15 @@ const VideoDetail = () => {
           </div>
 
           {/* Youtoube Video */}
+
           <div className="relative flex-1 flex-grow m-2 overflow-hidden rounded-lg shadow-sm ">
             <iframe
-              width="853"
-              height="480"
               src={videoData.videoUrl}
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
               title="Embedded youtube"
-              className="top-0 bottom-0 left-0 right-0 w-full h-full rounded-md"
+              className="absolute inset-0 w-full h-full rounded-md"
             />
           </div>
 
