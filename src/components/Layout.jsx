@@ -10,8 +10,6 @@ function Layout({ children }) {
       {/* <Footer /> */}
     </body>
   );
-
-  // return <div>Hello World</div>;
 }
 
 export default Layout;

@@ -13,7 +13,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar bg-base-100 top-0 left-0 right-0 hidden md:flex  justify-between border-b-2 shadow-sm">
+    <div className="navbar bg-base-100 top-0 left-0 right-0 absolute flex justify-between border-b-2 shadow-sm">
       <div className="">
         <a className="btn btn-ghost normal-case text-xl">Tokopedia Play</a>
       </div>
