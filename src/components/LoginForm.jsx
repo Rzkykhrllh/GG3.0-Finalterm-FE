@@ -86,7 +86,7 @@ const LoginForm = () => {
       {isLoading && <Loading />}
 
       <div className=" card card-bordered max-w-lg p-4 bg-white w-full">
-        <h1 className="text-lg  text-center font-bold text-primary">
+        <h1 className="text-lg  text-center font-bold ">
           Login to your account
         </h1>
 
@@ -99,14 +99,11 @@ const LoginForm = () => {
               type="text"
               name="email"
               placeholder="Type here"
-              className="input input-bordered w-full input-primary"
+              className="input input-bordered w-full input-[#f6f8fc]"
               onChange={handleChange}
               required
             />
-            <label className="label">
-              {/* <span className="label-text-alt">Bottom Left label</span>
-  <span className="label-text-alt">Bottom Right label</span> */}
-            </label>
+            <label className="label"></label>
           </div>
 
           <div id="password-input">
@@ -117,22 +114,29 @@ const LoginForm = () => {
               name="password"
               type="password"
               placeholder="Type here"
-              className="input input-bordered w-full input-primary"
+              className="input input-bordered w-full input-[#f6f8fc]"
               onChange={handleChange}
               required
             />
-            <label className="label">
-              {/* <span className="label-text-alt">Bottom Left label</span>
-  <span className="label-text-alt">Bottom Right label</span> */}
-            </label>
+            <label className="label"></label>
           </div>
 
           <button
-            className="btn btn-block btn-primary text-white"
+            className="btn btn-block btn-neutral text-white"
             type="submit"
           >
             Login
           </button>
+
+          <p className="text-center mt-2">
+            Don't have an account?{" "}
+            <a
+              className="text-blue-700 hover:text-blue-500 underline"
+              href="/register"
+            >
+              Register
+            </a>
+          </p>
         </form>
       </div>
     </>

@@ -8,7 +8,7 @@ function Login() {
         <LoginForm />
       </div>
 
-      <div className="lg:w-1/2 md:w-2/5  bg-primary"></div>
+      <div className="lg:w-1/2 md:w-2/5  bg-[#F6F8FC]"></div>
     </div>
   );
 }

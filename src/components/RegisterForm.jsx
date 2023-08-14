@@ -188,7 +188,7 @@ const RegisterForm = () => {
           </div>
         ) : (
           <>
-            <h1 className="text-lg font-bold text-center text-primary">
+            <h1 className="text-lg font-bold text-center text-[#f6f8fc]">
               Create Your Account
             </h1>
 
@@ -200,7 +200,7 @@ const RegisterForm = () => {
                 <input
                   type="text"
                   placeholder="Type here"
-                  className="w-full input input-bordered input-primary"
+                  className="w-full input input-bordered input-[#f6f8fc]"
                   onChange={handleChange}
                   name="name"
                   required
@@ -223,7 +223,7 @@ const RegisterForm = () => {
                 <input
                   type="text"
                   placeholder="Type here"
-                  className="w-full input input-bordered input-primary"
+                  className="w-full input input-bordered input-[#f6f8fc]"
                   onChange={handleChange}
                   name="phone"
                   required
@@ -245,7 +245,7 @@ const RegisterForm = () => {
                   name="email"
                   type="text"
                   placeholder="Type here"
-                  className="w-full input input-bordered input-primary"
+                  className="w-full input input-bordered input-[#f6f8fc]"
                   onChange={handleChange}
                   required
                 />
@@ -268,7 +268,7 @@ const RegisterForm = () => {
                   type="password"
                   name="password"
                   placeholder="Type here"
-                  className="w-full input input-bordered input-primary"
+                  className="w-full input input-bordered input-[#f6f8fc]"
                   onChange={handleChange}
                   required
                 />
@@ -282,11 +282,21 @@ const RegisterForm = () => {
               </div>
 
               <button
-                className="text-white btn btn-block btn-primary"
+                className="text-white btn btn-block btn-neutral"
                 type="submit"
               >
                 Sign UP
               </button>
+
+              <p className="text-center mt-2">
+                Already have an account?{" "}
+                <a
+                  className="text-blue-700 hover:text-blue-500 underline"
+                  href="/login"
+                >
+                  Login
+                </a>
+              </p>
             </form>
           </>
         )}
