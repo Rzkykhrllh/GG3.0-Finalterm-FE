@@ -15,7 +15,7 @@ const Navbar = () => {
   return (
     <div className="navbar bg-base-100 top-0 left-0 right-0 absolute flex justify-between border-b-2 shadow-sm">
       <div className="">
-        <a className="btn btn-ghost normal-case text-xl">Tokopedia Play</a>
+        <a className="btn btn-ghost normal-case text-xl">Stream Shop</a>
       </div>
 
       <div className="flex-none gap-2">
