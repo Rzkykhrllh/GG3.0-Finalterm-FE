@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import ProductCard from "../components/ProductCard";
 
@@ -11,12 +11,16 @@ import {
   GET_COMMENT_URL,
   POST_COMMENT_URL,
 } from "../utils/constants";
+
 import CommentSection from "../components/CommentSection";
 import { toast } from "react-toastify";
+
+import { IoMdArrowBack } from "react-icons/io";
 
 const VideoDetail = () => {
   const AxiosPrivate = useAxiosPrivate();
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [videoData, setVideoData] = useState({});
   const [products, setProducts] = useState([]);
@@ -97,11 +101,20 @@ const VideoDetail = () => {
       <div class="sm:col-span-7  rounded-lg sm:min-h-[96vh] min-h-[50vh] ">
         <div className="flex flex-col bg-white shadow-xl rounded-xl justify-between h-full min-h-[96vh]">
           {/* Judul dkk */}
-          <div className=" bg-[#F6F8FC] m-2 rounded-lg p-2">
-            <h1 id="title" className="text-lg font-bold">
-              {videoData.title}
-            </h1>
-            <p className="text-sm">by {videoData.videoOwnerUsername}</p>
+          <div className="bg-white flex justify-start">
+            <div
+              className="bg-[#F6F8FC] m-2 mr-0 p-2 rounded-lg flex flex-col justify-center hover:bg-neutral-content hover:cursor-pointer"
+              onClick={() => navigate(-1)}
+            >
+              <IoMdArrowBack size={32} className="mx-auto" />
+            </div>
+
+            <div className=" bg-[#F6F8FC] m-2 rounded-lg p-2 flex-grow flex-1">
+              <h1 id="title" className="text-lg font-bold">
+                {videoData.title}
+              </h1>
+              <p className="text-sm">by {videoData.videoOwnerUsername}</p>
+            </div>
           </div>
 
           {/* Youtoube Video */}
