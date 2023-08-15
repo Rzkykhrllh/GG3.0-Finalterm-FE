@@ -52,6 +52,10 @@ All the pages have responsive user interface.
    ![image](https://github.com/Rzkykhrllh/GG3.0-Finalterm-FE/assets/22367124/f943182a-e6c6-4459-b7cf-b19cea6c1a85)
    ![image](https://github.com/Rzkykhrllh/GG3.0-Finalterm-FE/assets/22367124/5beca2ad-1325-4daa-9d6f-4cee5e7b4aaf)
 
+5. Carousel in Vdeo Detail Page
+   ![Animation](https://github.com/Rzkykhrllh/GG3.0-Finalterm-FE/assets/22367124/fd649c88-f504-4e48-8a87-1713fdb4bfed)
+
+
 
 ## TechStack
 Techstack: React JS, Tailwind CSS, Daisy UI, Axios, React Router Dom, React Spinner, React Toastify, Tailwind Scrollbar.
